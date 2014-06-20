@@ -9,12 +9,17 @@ class CollectFood
   class << self
     def perform
       FOOD_TYPES.each do |food_type, food_type_id|
-        #TODO: remove removed food
-        CollectFood.list_of_food(food_type_id).each do |parsed_food|
-          food = Food.find_or_create_by(title: parsed_food[:title], :food_type => food_type)
-          #TODO: remove removed components
-          CollectFood.components(parsed_food[:external_id]).each do |component|
-            food.components << Component.find_or_create_by(component)
+        list_of_food = CollectFood.list_of_food(food_type_id)
+        Food.where(:food_type => food_type).where.not(title: list_of_food.collect{|f| f[:title]}).destroy_all
+        list_of_food.each do |parsed_food|
+          food = Food.find_or_initialize_by(title: parsed_food[:title], :food_type => food_type)
+          food.update(parsed_food.except(:external_id))
+          list_of_components = CollectFood.components(parsed_food[:external_id])
+          food.components.where.not(title: list_of_components.collect{|f| f[:title]}).destroy_all
+          list_of_components.each do |parsed_component|
+            component = Component.find_or_initialize_by(title: parsed_component[:title])
+            component.update(parsed_component)
+            food.components << component unless food.components.include?(component)
           end
         end
       end
