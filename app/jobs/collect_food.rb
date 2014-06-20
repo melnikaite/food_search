@@ -14,7 +14,7 @@ class CollectFood
           food = Food.find_or_create_by(title: parsed_food[:title], :food_type => food_type)
           #TODO: remove removed components
           CollectFood.components(parsed_food[:external_id]).each do |component|
-            food.components << Component.find_or_create_by(title: component)
+            food.components << Component.find_or_create_by(component)
           end
         end
       end
@@ -32,10 +32,15 @@ class CollectFood
       end
     end
 
-    #TODO: parse other fields
     def components(id)
       doc = Nokogiri::HTML(open("http://www.companionline.ru/fanalyser.php?f1id=#{id}"))
-      doc.css('[href^="fone"]').map(&:text)
+      doc.css('[href^="fone"]').map do |a|
+        {
+          title: a.text,
+          harmful: a.css('font').try(:[], 0).try(:[], 'color') == '#FF0000',
+          allergen: a.next.text == '*'
+        }
+      end
     end
 
     #TODO: parse groups of components
