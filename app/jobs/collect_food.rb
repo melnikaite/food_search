@@ -23,6 +23,7 @@ class CollectFood
           end
         end
       end
+      Food.reindex
     end
 
     def list_of_food(id)

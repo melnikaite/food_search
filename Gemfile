@@ -39,3 +39,5 @@ gem 'debugger', group: [:development, :test]
 gem 'mysql2'
 gem 'nokogiri'
 gem 'rufus-scheduler'
+gem 'awesome_print'
+gem 'searchkick'
