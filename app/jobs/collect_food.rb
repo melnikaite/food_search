@@ -48,8 +48,5 @@ class CollectFood
         }
       end
     end
-
-    #TODO: parse groups of components
-    #TODO: parse english version
   end
 end

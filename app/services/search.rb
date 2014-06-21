@@ -1,13 +1,17 @@
 class Search
-  def initialize(without_components: [], without_harmful: false, without_allergic: false)
+  def initialize(without_components: [], without_harmful: false, without_allergic: false, food_types: [])
     @without_components = without_components
     @without_harmful = without_harmful
     @without_allergic = without_allergic
+    @food_types = food_types
   end
 
-  #TODO: search by type
   def where
     where = {}
+
+    unless @food_types.blank?
+      where[:'food_type'] = [@food_types]
+    end
 
     unless @without_components.blank?
       where[:'components.title'] = {not: @without_components}

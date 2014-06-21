@@ -10,6 +10,7 @@ class Food < ActiveRecord::Base
       only: [
         :id,
         :title,
+        :food_type,
       ],
       include: {
         components: {
@@ -17,7 +18,7 @@ class Food < ActiveRecord::Base
             :id,
             :title,
             :harmful,
-            :allergen
+            :allergen,
           ]
         }
       }
