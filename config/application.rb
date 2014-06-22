@@ -21,5 +21,7 @@ module FoodSearch
     # config.i18n.default_locale = :de
 
     config.autoload_paths += %W(#{config.root}/app/jobs #{config.root}/app/services)
+
+    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
   end
 end

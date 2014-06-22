@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  root 'main#index'
+  resources :main, only: :index do
+    collection do
+      get :foods
+      get :components
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

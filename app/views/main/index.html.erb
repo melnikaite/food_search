@@ -1,0 +1,12 @@
+<div ng-controller='MainController'>
+  <ul>
+    <li ng-repeat='food in data.foods track by food.id'>
+      {{ food.title }}
+    </li>
+  </ul>
+  <ul>
+    <li ng-repeat='component in data.components track by component.id'>
+      {{ component.title }}
+    </li>
+  </ul>
+</div>

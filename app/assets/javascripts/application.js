@@ -12,5 +12,16 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require lodash
+//= require bootstrap
+//= require angular
+//= require angular-animate
+//= require angular-resource
+//= require restangular
+
+//= require main
+//= require_tree ./services
+//= require_tree ./filters
+//= require_tree ./controllers
+//= require_tree ./directives
+//= require_self
