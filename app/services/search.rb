@@ -14,7 +14,7 @@ class Search
     end
 
     unless @without_components.blank?
-      where[:'components.title'] = {not: @without_components}
+      where[:'components.id'] = {not: @without_components}
     end
 
     if @without_harmful

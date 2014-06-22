@@ -3,11 +3,22 @@ class MainController < ApplicationController
   end
 
   def foods
-    foods = Rails.cache.fetch("foods_#{params[:food_type]}", expires_in: 1.week) do
-      Food.where(params[:food_type]).to_json
-    end
+    options = params.permit(
+      {:without_components => []},
+      :without_harmful,
+      :without_allergic,
+      :food_types
+    ).symbolize_keys
 
-    render json: foods
+    results = if options[:without_components]
+                Oj.dump(Search.new(options).results)
+              else
+                Rails.cache.fetch("foods_#{options}", expires_in: 1.week) do
+                  Oj.dump(Search.new(options).results)
+                end
+              end
+
+    render json: results
   end
 
   def components

@@ -17,6 +17,7 @@ class CollectFood
           list_of_components = CollectFood.components(parsed_food[:external_id])
           food.components.where.not(title: list_of_components.collect{|f| f[:title]}).destroy_all
           list_of_components.each do |parsed_component|
+            next if parsed_component[:title].blank?
             component = Component.find_or_initialize_by(title: parsed_component[:title])
             component.update(parsed_component)
             food.components << component unless food.components.include?(component)

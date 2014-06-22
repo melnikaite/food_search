@@ -1,12 +1,24 @@
 <div ng-controller='MainController'>
+  TODO: type of food/without harmful/without allergen
+
+  <h1>Components</h1>
+  TODO: collapse/expand
+  <input ng-model='search.title'>
+  <ul class='row list-inline'>
+    <li class='checkbox col-lg-3 col-md-4 col-sm-6' ng-repeat='component in data.components | filter:search:strict track by component.id'>
+      <label>
+        <input type='checkbox' ng-change='updateComponent(component)' ng-model='data.components[$index].exclude'>
+        {{ component.title }}
+      </label>
+    </li>
+  </ul>
+
+  <h1>Foods ({{ data.foods.length }})</h1>
   <ul>
     <li ng-repeat='food in data.foods track by food.id'>
       {{ food.title }}
     </li>
   </ul>
-  <ul>
-    <li ng-repeat='component in data.components track by component.id'>
-      {{ component.title }}
-    </li>
-  </ul>
+
+  TODO: comparison
 </div>

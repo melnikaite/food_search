@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'main#index'
   resources :main, only: :index do
     collection do
-      get :foods
+      post :foods
       get :components
     end
   end
