@@ -1,4 +1,4 @@
-app.controller 'MainController', ($scope, DataService) ->
+app.controller 'MainController', ($scope, DataService, $filter) ->
   $scope.data = {}
   $scope.options =
     without_components: []
@@ -21,6 +21,18 @@ app.controller 'MainController', ($scope, DataService) ->
       $scope.data.foods = data
       $scope.loading = false
   , true
+
+  $scope.selectComponents = (exclude) ->
+    components = $filter('filter')($scope.data.components, $scope.search.title, 'search:strict')
+    _.each components, (component) ->
+      component.exclude = exclude
+    $scope.options.without_components = _.map _.filter($scope.data.components, 'exclude'), (component) ->
+      component.id
+
+  $scope.selectFoods = (compare) ->
+    $scope.data.foods = _.map $scope.data.foods, (food) ->
+      food.compare = compare
+      food
 
   $scope.addToComparison = (food) ->
     console.log food
