@@ -1,18 +1,21 @@
 app.controller 'MainController', ($scope, DataService) ->
   $scope.data = {}
-
-  DataService.foods().then (data) ->
-    $scope.data.foods = data
+  $scope.options =
+    without_components: []
 
   DataService.components().then (data) ->
     $scope.data.components = data
 
-  $scope.updateComponent = (component) ->
-    excludedComponents = _.filter $scope.data.components, (component) ->
-      component.exclude
+  $scope.filterByComponent = (component) ->
+    if component.exclude && _.indexOf($scope.options.without_components) == -1
+      $scope.options.without_components.push(component.id)
+    else
+      _.pull($scope.options.without_components, component.id)
 
-    ids = _.map excludedComponents, (component) ->
-      component.id
-
-    DataService.foods(without_components: ids).then (data) ->
+  $scope.$watch 'options', (options) ->
+    DataService.foods(options).then (data) ->
       $scope.data.foods = data
+  , true
+
+  $scope.addToComparison = (food) ->
+    console.log food

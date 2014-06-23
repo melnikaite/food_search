@@ -18,11 +18,11 @@ class Search
     end
 
     if @without_harmful
-      where[:'components.harmful'] = {all: [false]}
+      where[:'components.harmful'] = {not: [true]}
     end
 
     if @without_allergic
-      where[:'components.allergen'] = {all: [false]}
+      where[:'components.allergen'] = {not: [true]}
     end
 
     where

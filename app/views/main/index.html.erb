@@ -1,24 +1,45 @@
 <div ng-controller='MainController'>
-  TODO: type of food/without harmful/without allergen
+  <h5>Options</h5>
+  <select ng-model='options.food_types'>
+    <option value=''></option>
+    <option value='cat'>Cat</option>
+    <option value='dog'>Dog</option>
+  </select>
+  <label>
+    <input type='checkbox' ng-model='options.without_harmful'>
+    Without harmful
+  </label>
+  <label>
+    <input type='checkbox' ng-model='options.without_allergic'>
+    Without allergen
+  </label>
+  <br>
 
-  <h1>Components</h1>
-  TODO: collapse/expand
-  <input ng-model='search.title'>
+  <i ng-class="{'glyphicon': true, 'glyphicon-chevron-down': !showComponents, 'glyphicon-chevron-up': showComponents}" ng-click='showComponents=!showComponents'></i>
+  <h5 class='glyphicon-title' ng-click='showComponents=!showComponents'>Exclude components</h5>
+  <!-- TODO: check all/uncheck all -->
+  <div ng-show='showComponents'>
+    Filter <input ng-model='search.title'>
+    <ul class='row list-inline'>
+      <li class='checkbox col-lg-3 col-md-4 col-sm-6' ng-repeat='component in data.components | filter:search:strict track by component.id'>
+        <label>
+          <input type='checkbox' ng-change='filterByComponent(component)' ng-model='component.exclude'>
+          {{ component.title }}
+        </label>
+      </li>
+    </ul>
+  </div>
+
+  <h5>Foods ({{ data.foods.length }})</h5>
   <ul class='row list-inline'>
-    <li class='checkbox col-lg-3 col-md-4 col-sm-6' ng-repeat='component in data.components | filter:search:strict track by component.id'>
+    <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods track by food.id'>
       <label>
-        <input type='checkbox' ng-change='updateComponent(component)' ng-model='data.components[$index].exclude'>
-        {{ component.title }}
+        <input type='checkbox' ng-change='addToComparison(food)' ng-model='food.compare'>
+        {{ food.title }}
       </label>
     </li>
   </ul>
 
-  <h1>Foods ({{ data.foods.length }})</h1>
-  <ul>
-    <li ng-repeat='food in data.foods track by food.id'>
-      {{ food.title }}
-    </li>
-  </ul>
-
-  TODO: comparison
+  <h5>Comparison</h5>
+  <!-- TODO: comparison -->
 </div>
