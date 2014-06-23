@@ -11,10 +11,10 @@ class MainController < ApplicationController
     ).symbolize_keys
 
     results = if options[:without_components]
-                Oj.dump(Search.new(options).results)
+                Oj.dump(Search.new(options).results.each{|f| f.delete('components')})
               else
                 Rails.cache.fetch("foods_#{options}", expires_in: 1.week) do
-                  Oj.dump(Search.new(options).results)
+                  Oj.dump(Search.new(options).results.each{|f| f.delete('components')})
                 end
               end
 
