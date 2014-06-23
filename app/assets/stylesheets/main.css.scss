@@ -11,3 +11,11 @@
 .glyphicon-title {
   display: inline-block;
 }
+
+@keyframes spin {
+  to { transform: rotate(1turn); }
+}
+
+.glyphicon-refresh {
+  animation: 1s infinite spin;
+}
