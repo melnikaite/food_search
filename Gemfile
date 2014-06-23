@@ -32,13 +32,15 @@ gem 'rack-handlers'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# Use debugger
-gem 'debugger', group: [:development, :test]
+group :development, :test do
+  gem 'debugger'
+  gem 'awesome_print'
+  gem 'rspec-rails', '~> 3.0.0'
+end
 
 gem 'mysql2'
 gem 'nokogiri'
 gem 'rufus-scheduler'
-gem 'awesome_print'
 gem 'searchkick'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'angularjs-rails'

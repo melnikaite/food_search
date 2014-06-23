@@ -1,9 +1,9 @@
 app.factory 'DataService', (Restangular) ->
   foods = (params) ->
-    Restangular.all('main/foods').customPOST(params)
+    Restangular.all('foods').customPOST(params)
 
-  components = (food) ->
-    Restangular.all('main/components').getList(food: food)
+  components = ->
+    Restangular.all('components').getList()
 
   foods: foods
   components: components

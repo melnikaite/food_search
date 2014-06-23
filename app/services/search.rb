@@ -1,13 +1,18 @@
 class Search
-  def initialize(without_components: [], without_harmful: false, without_allergic: false, food_types: [])
+  def initialize(ids: [], food_types: [], without_components: [], without_harmful: false, without_allergic: false)
+    @ids = ids
+    @food_types = food_types
     @without_components = without_components
     @without_harmful = without_harmful
     @without_allergic = without_allergic
-    @food_types = food_types
   end
 
   def where
     where = {}
+
+    unless @ids.blank?
+      where[:'id'] = [@ids]
+    end
 
     unless @food_types.blank?
       where[:'food_type'] = [@food_types]
@@ -29,6 +34,9 @@ class Search
   end
 
   def results
-    Food.search('*', load: false, where: where).results
+    request = Food.search('*', load: false, where: where, execute: false)
+    request.body[:_source] = {exclude: 'components.*'} if @ids.blank?
+    results = request.execute.results
+    Oj.dump(results)
   end
 end
