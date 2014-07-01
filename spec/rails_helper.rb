@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'shoulda/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -40,4 +41,31 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  config.include FactoryGirl::Syntax::Methods
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+end
+
+VCR.configure do |c|
+  c.configure_rspec_metadata!
+  c.cassette_library_dir = 'spec/cassettes'
+  c.hook_into :webmock
+  c.default_cassette_options = {
+    record: :once,
+  }
+  c.ignore_request do |request|
+    uri = URI(request.uri)
+    uri.port == 9200
+  end
+  #c.debug_logger = $stdout
 end

@@ -6,7 +6,7 @@ class FoodsController < ApplicationController
       :food_types,
       {:without_components => []},
       :without_harmful,
-      :without_allergic,
+      :without_allergen,
     )
     .symbolize_keys
 

@@ -1,10 +1,10 @@
 class Search
-  def initialize(ids: [], food_types: [], without_components: [], without_harmful: false, without_allergic: false)
+  def initialize(ids: [], food_types: [], without_components: [], without_harmful: false, without_allergen: false)
     @ids = ids
     @food_types = food_types
     @without_components = without_components
     @without_harmful = without_harmful
-    @without_allergic = without_allergic
+    @without_allergen = without_allergen
   end
 
   def where
@@ -26,7 +26,7 @@ class Search
       where[:'components.harmful'] = {not: [true]}
     end
 
-    if @without_allergic
+    if @without_allergen
       where[:'components.allergen'] = {not: [true]}
     end
 
