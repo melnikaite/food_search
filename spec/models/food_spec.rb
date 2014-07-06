@@ -8,15 +8,23 @@ RSpec.describe Food, :type => :model do
     component = FactoryGirl.build(:component)
     food.components << component
     expectation = {
-      'id' => nil,
-      'title' => 'food',
-      'food_type' => 'dog',
-      'components' => [
+      :id => nil,
+      :title => 'food',
+      :food_type => 'dog',
+      :components => [
         {
-          'id' => nil,
-          'title' => 'component',
-          'harmful' => false,
-          'allergen' => false
+          :group => 'group',
+          :components_in_group => [
+            {
+              :id => nil,
+              :title => 'component',
+              :harmful => false,
+              :allergen => false,
+              :useful => false,
+              :translation => 'translation',
+              :description => 'description'
+            }
+          ]
         }
       ]
     }

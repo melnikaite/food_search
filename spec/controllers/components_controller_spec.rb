@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ComponentsController, :type => :controller do
-  before do
-    Rails.cache.clear
-  end
-
   it 'should show all components' do
     component = FactoryGirl.create(:component)
     get :index

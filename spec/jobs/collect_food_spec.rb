@@ -10,7 +10,7 @@ RSpec.describe CollectFood, :vcr do
   it 'should parse list of components' do
     result = CollectFood.components(157)
 
-    result[0].should == {:title => 'Курица', :harmful => false, :allergen => false}
+    result[0].should == {:title => 'Курица', :harmful => false, :useful => true, :allergen => false, :translation => 'Chicken', :description => 'Используется мясо, кожа и иногда кости. Не используются головы, лапы, внутренности и перья. Наиболее «нежный» продукт. Собаки, плохо переваривающие мясные ингридиенты, чаще всего очень хорошо переваривают куриные составляющие.', :group => 'Белки (протеин)'}
   end
 
   it 'should create structure of foods and components' do

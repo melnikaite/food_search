@@ -12,14 +12,14 @@ class CollectFood
         list_of_food = CollectFood.list_of_food(food_type_id)
         Food.where(:food_type => food_type).where.not(title: list_of_food.collect{|f| f[:title]}).destroy_all
         list_of_food.each do |parsed_food|
-          food = Food.find_or_initialize_by(title: parsed_food[:title], :food_type => food_type)
+          food = Food.includes(:components => :group).find_or_initialize_by(title: parsed_food[:title], :food_type => food_type)
           food.update(parsed_food.except(:external_id))
           list_of_components = CollectFood.components(parsed_food[:external_id])
           food.components.where.not(title: list_of_components.collect{|f| f[:title]}).destroy_all
           list_of_components.each do |parsed_component|
             next if parsed_component[:title].blank?
-            component = Component.find_or_initialize_by(title: parsed_component[:title])
-            component.update(parsed_component)
+            group = Group.find_or_create_by_title(parsed_component[:group])
+            component = Component.find_or_update_by_title(parsed_component.except(:group).merge({group_id: group.id}))
             food.components << component unless food.components.include?(component)
           end
         end
@@ -41,11 +41,17 @@ class CollectFood
 
     def components(id)
       doc = Nokogiri::HTML(open("http://www.companionline.ru/fanalyser.php?f1id=#{id}"))
-      doc.css('[href^="fone"]').map do |a|
+      doc.search('[href^="fone"]').map do |a|
+        color = a.search('font')[0]['color']
+        popup = a.parent().next_element()
         {
           title: a.text,
-          harmful: a.css('font').try(:[], 0).try(:[], 'color') == '#FF0000',
-          allergen: a.next.text == '*'
+          harmful: ['#FF0000', '#CC0000'].include?(color),
+          useful: ['#339966', '#339900'].include?(color),
+          allergen: a.next.text == '*',
+          translation: popup.search('.tcat').text,
+          description: popup.search('.smallfont').text.gsub("\r\n", ''),
+          group: a.parent().parent().parent().previous_element().search('td')[0].text.strip,
         }
       end
     end

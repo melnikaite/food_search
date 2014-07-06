@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe FoodsController, :type => :controller do
-  before do
-    Rails.cache.clear
-  end
-
   it 'should show search results' do
     food = FactoryGirl.create(:food)
     food.components << FactoryGirl.create(:component)

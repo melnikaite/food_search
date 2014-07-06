@@ -3,25 +3,31 @@ class Food < ActiveRecord::Base
 
   searchkick batch_size: 50
 
-  scope :search_import, -> { includes(:components) }
+  scope :search_import, -> { includes(:components => :group) }
 
   def search_data
-    as_json(
-      only: [
-        :id,
-        :title,
-        :food_type,
-      ],
-      include: {
-        components: {
-          only: [
-            :id,
-            :title,
-            :harmful,
-            :allergen,
-          ]
+    {
+      id: id,
+      title: title,
+      food_type: food_type,
+      components: components.group_by do |component|
+        component.group.title
+      end.map do |group, components_in_group|
+        {
+          group: group,
+          components_in_group: components_in_group.map do |c|
+            {
+              id: c.id,
+              title: c.title,
+              harmful: c.harmful,
+              allergen: c.allergen,
+              useful: c.useful,
+              translation: c.translation,
+              description: c.description,
+            }
+          end
         }
-      }
-    )
+      end
+    }
   end
 end

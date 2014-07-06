@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620130020) do
+ActiveRecord::Schema.define(version: 20140706075618) do
 
   create_table "components", force: true do |t|
     t.string   "title"
@@ -19,7 +19,13 @@ ActiveRecord::Schema.define(version: 20140620130020) do
     t.boolean  "allergen"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "useful"
+    t.string   "translation"
+    t.text     "description"
+    t.integer  "group_id"
   end
+
+  add_index "components", ["group_id"], name: "index_components_on_group_id", using: :btree
 
   create_table "components_foods", id: false, force: true do |t|
     t.integer "food_id",      null: false
@@ -31,6 +37,10 @@ ActiveRecord::Schema.define(version: 20140620130020) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "food_type"
+  end
+
+  create_table "groups", force: true do |t|
+    t.string "title"
   end
 
 end

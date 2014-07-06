@@ -27,7 +27,9 @@
       <li class='checkbox col-lg-3 col-md-4 col-sm-6' ng-repeat='component in data.components | filter:search:strict track by component.id'>
         <label>
           <input type='checkbox' ng-change='filterByComponent(component)' ng-model='component.exclude'>
-          {{ component.title }}
+          <span ng-class="{'useful': component.useful, 'harmful': component.harmful, 'allergen': component.allergen}" title='{{component.description}}'>
+            {{ component.title }} / {{ component.translation }}
+          </span>
         </label>
       </li>
     </ul>

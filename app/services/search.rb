@@ -19,15 +19,15 @@ class Search
     end
 
     unless @without_components.blank?
-      where[:'components.id'] = {not: @without_components}
+      where[:'components.components_in_group.id'] = {not: @without_components}
     end
 
     if @without_harmful
-      where[:'components.harmful'] = {not: [true]}
+      where[:'components.components_in_group.harmful'] = {not: [true]}
     end
 
     if @without_allergen
-      where[:'components.allergen'] = {not: [true]}
+      where[:'components.components_in_group.allergen'] = {not: [true]}
     end
 
     where

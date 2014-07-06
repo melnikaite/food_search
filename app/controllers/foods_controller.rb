@@ -10,7 +10,7 @@ class FoodsController < ApplicationController
     )
     .symbolize_keys
 
-    results = Rails.cache.fetch("foods_#{options}", expires_in: 1.week) do
+    results = Rails.cache.fetch("foods_#{options}") do
       Search.new(options).results
     end
 

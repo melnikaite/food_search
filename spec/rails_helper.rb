@@ -54,6 +54,10 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  config.before(:each) do
+    Rails.cache.clear
+  end
 end
 
 VCR.configure do |c|
