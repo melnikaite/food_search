@@ -46,7 +46,7 @@ group :test do
   gem 'webmock'
 end
 
-gem 'mysql2'
+gem 'pg'
 gem 'nokogiri'
 gem 'rufus-scheduler'
 gem 'searchkick'
