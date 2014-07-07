@@ -6,7 +6,7 @@ app.controller 'MainController', ($scope, DataService, $filter) ->
 
   $scope.loading = true
   DataService.components().then (data) ->
-    $scope.data.components = data
+    $scope.data.components = data.plain()
     $scope.loading = false
 
   $scope.filterByComponent = (component) ->
@@ -18,14 +18,20 @@ app.controller 'MainController', ($scope, DataService, $filter) ->
   $scope.$watch 'options', (options) ->
     $scope.loading = true
     DataService.foods(options).then (data) ->
-      $scope.data.foods = data
+      $scope.data.foods = data.plain()
       $scope.loading = false
   , true
 
   $scope.selectComponents = (exclude) ->
-    components = $filter('filter')($scope.data.components, $scope.search.title, 'search:strict')
+    components = if $scope.search
+      $filter('filter')($scope.data.components, $scope.search, 'strict')
+    else
+      $scope.data.components
+
     _.each components, (component) ->
       component.exclude = exclude
+      true
+
     $scope.options.without_components = _.map _.filter($scope.data.components, 'exclude'), (component) ->
       component.id
 
