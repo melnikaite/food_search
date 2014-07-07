@@ -57,3 +57,4 @@ gem 'redis-rails'
 gem 'oj'
 gem 'oj_mimic_json'
 gem 'unicorn'
+gem 'rails_12factor', group: :production
