@@ -26,6 +26,6 @@ module FoodSearch
     config.cache_store = :redis_store, redis_url, { expires_in: 1.week }
     config.session_store :redis_store, redis_server: redis_url
 
-    config.assets.js_compressor = Uglifier.new(mangle: false)
+    config.assets.compress = false
   end
 end
