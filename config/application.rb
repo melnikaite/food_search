@@ -22,6 +22,6 @@ module FoodSearch
 
     config.autoload_paths += %W(#{config.root}/app/jobs #{config.root}/app/services)
 
-    config.cache_store = :redis_store, ENV['REDISCLOUD_URL'] || "redis://localhost:6379/0/#{Rails.env}/cache", { expires_in: 1.week }
+    config.cache_store = :redis_store, { expires_in: 1.week }
   end
 end
