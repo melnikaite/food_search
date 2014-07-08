@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
@@ -58,3 +59,8 @@ gem 'oj'
 gem 'oj_mimic_json'
 gem 'unicorn'
 gem 'rails_12factor', group: :production
+gem 'capistrano'
+gem 'capistrano-rvm'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
+gem 'therubyracer'
