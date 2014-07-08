@@ -1,4 +1,4 @@
-app.controller 'MainController', ($scope, DataService, $filter) ->
+app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, DataService, $filter) ->
   $scope.data = {}
   $scope.options =
     without_components: []
@@ -42,3 +42,4 @@ app.controller 'MainController', ($scope, DataService, $filter) ->
 
   $scope.addToComparison = (food) ->
     console.log food
+]
