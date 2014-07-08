@@ -1,4 +1,4 @@
-app.factory 'DataService', (Restangular) ->
+app.factory 'DataService', ['Restangular', (Restangular) ->
   foods = (params) ->
     Restangular.all('foods').customPOST(params)
 
@@ -7,3 +7,4 @@ app.factory 'DataService', (Restangular) ->
 
   foods: foods
   components: components
+]

@@ -59,3 +59,8 @@ gem 'oj'
 gem 'oj_mimic_json'
 gem 'unicorn'
 gem 'rails_12factor', group: :production
+gem 'capistrano'
+gem 'capistrano-rvm'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
+gem 'therubyracer'
