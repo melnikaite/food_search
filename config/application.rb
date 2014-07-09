@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module FoodSearch
   class Application < Rails::Application
+    config.assets.initialize_on_precompile = true
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
 
     # Settings in config/environments/* take precedence over those specified here.
