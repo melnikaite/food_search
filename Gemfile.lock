@@ -32,6 +32,8 @@ GEM
       rails (>= 3, < 5)
     angularjs-rails (1.2.18)
     arel (5.0.1.20140414130214)
+    autoprefixer-rails (2.1.0.20140628)
+      execjs
     awesome_print (1.2.0)
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
@@ -238,8 +240,9 @@ PLATFORMS
 DEPENDENCIES
   angular_rails_csrf
   angularjs-rails
+  autoprefixer-rails
   awesome_print
-  bootstrap-sass (~> 3.1.1)
+  bootstrap-sass
   capistrano
   capistrano-bundler
   capistrano-rails
