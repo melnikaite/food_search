@@ -34,7 +34,7 @@ gem 'rack-handlers'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'debugger'
+  gem 'byebug'
   gem 'awesome_print'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'factory_girl_rails', '~> 4.0'
@@ -52,6 +52,7 @@ gem 'nokogiri'
 gem 'rufus-scheduler'
 gem 'searchkick'
 gem 'bootstrap-sass'
+gem 'non-stupid-digest-assets'
 gem 'autoprefixer-rails'
 gem 'angularjs-rails'
 gem 'angular_rails_csrf'
