@@ -1,8 +1,8 @@
 <i ng-class="{'glyphicon': true, 'glyphicon-refresh': loading}"></i>
-<h5 class='glyphicon-title'>Foods ({{ data.foods.length }})</h5>
+<h5 class='glyphicon-title'>Корма ({{ data.foods.length }})</h5>
 <label>
   <input type='checkbox' ng-change='selectFoods(allFoods)' ng-model='allFoods'>
-  All
+  Все
 </label>
 <ul class='row list-inline'>
   <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods track by food.id'>

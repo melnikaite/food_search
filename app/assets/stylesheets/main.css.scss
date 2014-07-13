@@ -1,6 +1,10 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+body {
+  padding: 20px;
+}
+
 .radio label, .checkbox label {
   padding-left: 30px;
 }
@@ -31,4 +35,12 @@
 
 .allergen {
   border-bottom: 1px dotted red;
+}
+
+.checkbox {
+  margin: auto !important;
+}
+
+.description, .options, .components, .foods, .comparison {
+  margin-bottom: 30px;
 }
