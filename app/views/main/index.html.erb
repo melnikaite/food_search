@@ -1,56 +1,6 @@
 <div ng-controller='MainController'>
-  <h5>Options</h5>
-  <select ng-model='options.food_types'>
-    <option value=''></option>
-    <option value='cat'>Cat</option>
-    <option value='dog'>Dog</option>
-  </select>
-  <label>
-    <input type='checkbox' ng-model='options.without_harmful'>
-    Without harmful
-  </label>
-  <label>
-    <input type='checkbox' ng-model='options.without_allergen'>
-    Without allergen
-  </label>
-  <br>
-
-  <i ng-class="{'glyphicon': true, 'glyphicon-chevron-down': !showComponents, 'glyphicon-chevron-up': showComponents}" ng-click='showComponents=!showComponents'></i>
-  <h5 class='glyphicon-title' ng-click='showComponents=!showComponents'>Exclude components</h5>
-  <div ng-show='showComponents'>
-    Filter <input ng-model='search.title'>
-    <label>
-      <input type='checkbox' ng-change='selectComponents(allComponents)' ng-model='allComponents'>
-      All
-    </label>
-    <ul class='row list-inline'>
-      <li class='checkbox col-lg-3 col-md-4 col-sm-6' ng-repeat='component in data.components | filter:search:strict track by component.id'>
-        <label>
-          <input type='checkbox' ng-change='filterByComponent(component)' ng-model='component.exclude'>
-          <span ng-class="{'useful': component.useful, 'harmful': component.harmful, 'allergen': component.allergen}" title='{{component.description}}'>
-            {{ component.title }} / {{ component.translation }}
-          </span>
-        </label>
-      </li>
-    </ul>
-  </div>
-  <br>
-
-  <i ng-class="{'glyphicon': true, 'glyphicon-refresh': loading}"></i>
-  <h5 class='glyphicon-title'>Foods ({{ data.foods.length }})</h5>
-  <label>
-    <input type='checkbox' ng-change='selectFoods(allFoods)' ng-model='allFoods'>
-    All
-  </label>
-  <ul class='row list-inline'>
-    <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods track by food.id'>
-      <label>
-        <input type='checkbox' ng-change='addToComparison(food)' ng-model='food.compare'>
-        {{ food.title }}
-      </label>
-    </li>
-  </ul>
-
-  <h5>Comparison</h5>
-  <!-- TODO: comparison -->
+  <div ng-include src="'options.html'"></div>
+  <div ng-include src="'components.html'"></div>
+  <div ng-include src="'foods.html'"></div>
+  <div ng-include src="'comparison.html'"></div>
 </div>

@@ -19,6 +19,9 @@
 //= require angular-resource
 //= require restangular
 
+//= require angular-rails-templates
+//= require_tree ../templates
+
 //= require main
 //= require_tree ./services
 //= require_tree ./controllers

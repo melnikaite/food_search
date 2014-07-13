@@ -2,4 +2,5 @@
   'ngAnimate',
   'ngResource',
   'restangular',
+  'templates',
 ])
