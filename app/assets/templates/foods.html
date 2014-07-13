@@ -7,7 +7,7 @@
 <ul class='row list-inline'>
   <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods track by food.id'>
     <label>
-      <input type='checkbox' ng-change='addToComparison(food)' ng-model='food.compare'>
+      <input type='checkbox' ng-change='compare(food)' ng-model='food.compare'>
       {{ food.title }}
     </label>
   </li>
