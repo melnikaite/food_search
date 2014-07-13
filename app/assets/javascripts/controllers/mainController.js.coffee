@@ -3,6 +3,8 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
     comparedFoods: []
   $scope.options =
     without_components: []
+  $scope.search =
+    title: ''
   $scope.loading = false
 
   $scope.loading = true
