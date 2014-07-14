@@ -1,12 +1,13 @@
-<h5>Сравнение</h5>
+<h5>Сравнение ({{ data.comparedFoods.length }})</h5>
 <ul class='row foods'>
   <li class='col-lg-4 col-md-6' ng-repeat='food in data.comparedFoods track by food.id'>
     <span class='food-title'>{{ food.title }}</span>
+    <span ng-click='removeFromComparison(food)' class='glyphicon glyphicon-remove' title='Удалить из сравнения'></span>
     <ul class='groups'>
       <li ng-repeat='group in food.components'>
         {{ group.group }}
         <ul class='components'>
-          <li ng-repeat='component in group.components_in_group'>
+          <li ng-repeat='component in group.components_in_group' ng-hide='sameComponentExists(component)'>
             <span ng-class="{'useful': component.useful, 'harmful': component.harmful, 'allergen': component.allergen}" title='{{component.description}}'>
               {{ component.title }} / {{ component.translation }}
             </span>

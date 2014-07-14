@@ -62,6 +62,23 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
           $scope.data.comparedFoods.push(comparedFood)
         $scope.loading = false
     else
-      _.remove $scope.data.comparedFoods, (comparedFood) ->
-        comparedFood.id == food.id
+      $scope.removeFromComparison(food)
+
+  # hide same components
+  $scope.sameComponentExists = (component) ->
+    return false if $scope.data.comparedFoods.length < 2
+
+    groups = _.map $scope.data.comparedFoods, (food) ->
+      _.flatten _.map food.components, (group) ->
+        _.pluck group.components_in_group, 'id'
+
+    _.all groups, (component_ids) ->
+      _.include component_ids, component.id
+
+  $scope.removeFromComparison = (food) ->
+    foodItem = _.find $scope.data.foods, {id: food.id}
+    foodItem.compare = false if foodItem
+
+    _.remove $scope.data.comparedFoods, (comparedFood) ->
+      comparedFood.id == food.id
 ]
