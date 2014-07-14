@@ -27,6 +27,8 @@ class Food < ActiveRecord::Base
             }
           end
         }
+      end.sort_by do |c|
+        c['group']
       end
     }
   end

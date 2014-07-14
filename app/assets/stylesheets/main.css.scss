@@ -44,3 +44,20 @@ body {
 .description, .options, .components, .foods, .comparison {
   margin-bottom: 30px;
 }
+
+.comparison {
+  .foods-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    .foods {
+      width: 200%;
+
+      .food {
+        width: 500px;
+        float: left;
+      }
+    }
+  }
+}
