@@ -66,7 +66,8 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
 
   # hide same components
   $scope.sameComponentExists = (component) ->
-    return false if $scope.data.comparedFoods.length < 2
+    if $scope.options.show_same_components || $scope.data.comparedFoods.length < 2
+      return false
 
     groups = _.map $scope.data.comparedFoods, (food) ->
       _.flatten _.map food.components, (group) ->

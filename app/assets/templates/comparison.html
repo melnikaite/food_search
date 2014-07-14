@@ -1,4 +1,10 @@
 <h5>Сравнение ({{ data.comparedFoods.length }})</h5>
+<label>
+  <label>
+    <input type='checkbox' ng-model='options.show_same_components'>
+    Показывать одинаковые компоненты
+  </label>
+</label>
 <ul class='row foods'>
   <li class='col-lg-4 col-md-6' ng-repeat='food in data.comparedFoods track by food.id'>
     <span class='food-title'>{{ food.title }}</span>
