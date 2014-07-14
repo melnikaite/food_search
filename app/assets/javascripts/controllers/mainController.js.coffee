@@ -3,7 +3,9 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
     comparedFoods: []
   $scope.options =
     without_components: []
-  $scope.search =
+  $scope.component_search =
+    title: ''
+  $scope.food_search =
     title: ''
   $scope.loading = false
 
@@ -26,11 +28,7 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
   , true
 
   $scope.selectComponents = (exclude) ->
-    components = if $scope.search
-      $filter('filter')($scope.data.components, $scope.search, 'strict')
-    else
-      $scope.data.components
-
+    components = $filter('filter')($scope.data.components, $scope.component_search, 'strict')
     _.each components, (component) ->
       component.exclude = exclude
       true
@@ -42,13 +40,14 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
   $scope.selectFoods = (compare) ->
     $scope.data.comparedFoods = []
 
-    $scope.data.foods = _.map $scope.data.foods, (food) ->
+    foods = $filter('filter')($scope.data.foods, $scope.food_search, 'strict')
+    _.each foods, (food) ->
       food.compare = compare
-      food
+      true
 
     if compare
       $scope.loading = true
-      DataService.foods(ids: _.pluck($scope.data.foods, 'id')).then (data) ->
+      DataService.foods(ids: _.pluck(foods, 'id')).then (data) ->
         _.each data.plain(), (comparedFood) ->
           $scope.data.comparedFoods.push(comparedFood)
         $scope.loading = false

@@ -1,13 +1,13 @@
-<i ng-class="{'glyphicon': true, 'glyphicon-chevron-down': !showComponents, 'glyphicon-chevron-up': showComponents}" ng-click='showComponents=!showComponents'></i>
+<i ng-class="{'glyphicon': true, 'glyphicon-chevron-up': !showComponents, 'glyphicon-chevron-down': showComponents}" ng-click='showComponents=!showComponents'></i>
 <h5 class='glyphicon-title' ng-click='showComponents=!showComponents'>Исключить компоненты</h5>
 <div ng-show='showComponents'>
-  Фильтр <input ng-model='search.title'>
+  Фильтр <input ng-model='component_search.title'>
   <label>
     <input type='checkbox' ng-change='selectComponents(allComponents)' ng-model='allComponents'>
     Все
   </label>
   <ul class='row list-inline'>
-    <li class='checkbox col-lg-3 col-md-4 col-sm-6' ng-repeat='component in data.components | filter:search:strict track by component.id'>
+    <li class='checkbox col-lg-3 col-md-4 col-sm-6' ng-repeat='component in data.components | filter:component_search:strict track by component.id'>
       <label>
         <input type='checkbox' ng-change='filterByComponent(component)' ng-model='component.exclude'>
           <span ng-class="{'useful': component.useful, 'harmful': component.harmful, 'allergen': component.allergen}" title='{{component.description}}'>
@@ -16,4 +16,7 @@
       </label>
     </li>
   </ul>
+</div>
+<div ng-hide='showComponents'>
+  <a ng-click='showComponents=!showComponents'>Выбрать исключения</a>
 </div>

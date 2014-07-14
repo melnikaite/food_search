@@ -1,11 +1,12 @@
 <i ng-class="{'glyphicon': true, 'glyphicon-refresh': loading}"></i>
 <h5 class='glyphicon-title'>Корма ({{ data.foods.length }})</h5>
+Фильтр <input ng-model='food_search.title'>
 <label>
   <input type='checkbox' ng-change='selectFoods(allFoods)' ng-model='allFoods'>
   Все
 </label>
 <ul class='row list-inline'>
-  <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods track by food.id'>
+  <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods | filter:food_search:strict track by food.id'>
     <label>
       <input type='checkbox' ng-change='compare(food)' ng-model='food.compare'>
       {{ food.title }}
