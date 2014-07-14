@@ -1,27 +1,30 @@
-<h5>Сравнение ({{ data.comparedFoods.length }})</h5>
-<label>
-  <label>
-    <input type='checkbox' ng-model='options.show_same_components'>
-    Показывать одинаковые компоненты
-  </label>
-</label>
-<div class='foods-container'>
-  <ul class='foods'>
-    <li class='food' ng-repeat='food in data.comparedFoods track by food.id'>
-      <span class='food-title'>{{ food.title }}</span>
-      <span ng-click='removeFromComparison(food)' class='glyphicon glyphicon-remove' title='Удалить из сравнения'></span>
-      <ul class='groups'>
-        <li ng-repeat='group in food.components'>
-          {{ group.group }}
-          <ul class='components'>
-            <li ng-repeat='component in group.components_in_group' ng-hide='sameComponentExists(component)'>
+<div ng-show='data.comparedFoods.length'>
+  <i ng-class="{'glyphicon': true, 'glyphicon-refresh': loading.comparison}"></i>
+  <h5 class='glyphicon-title'>Сравнение ({{ data.comparedFoods.length }})</h5>
+  <div>
+    <label>
+      <input type='checkbox' ng-model='options.show_same_components'>
+      Показывать одинаковые компоненты
+    </label>
+  </div>
+  <div class='foods-container'>
+    <ul class='foods' food-width>
+      <li class='food' ng-repeat='food in data.comparedFoods | orderBy:"title" track by food.id'>
+        <span class='food-title'>{{ food.title }}</span>
+        <span ng-click='removeFromComparison(food)' class='glyphicon glyphicon-remove' title='Удалить из сравнения'></span>
+        <ul class='groups'>
+          <li ng-repeat='group in food.components | orderBy:"group" track by group.group'>
+            {{ group.group }}
+            <ul class='components'>
+              <li ng-repeat='component in group.components_in_group | orderBy:"title" track by component.id' ng-hide='sameComponentExists(component)'>
             <span ng-class="{'useful': component.useful, 'harmful': component.harmful, 'allergen': component.allergen}" title='{{component.description}}'>
               {{ component.title }} / {{ component.translation }}
             </span>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </div>

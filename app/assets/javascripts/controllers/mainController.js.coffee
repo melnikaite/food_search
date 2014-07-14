@@ -7,26 +7,33 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
     title: ''
   $scope.food_search =
     title: ''
-  $scope.loading = false
+  $scope.loading =
+    foods: false
+    components: false
+    comparison: false
+  $scope.show_same_components = false
 
-  $scope.loading = true
+  $scope.loading.components = true
   DataService.components().then (data) ->
     $scope.data.components = data.plain()
-    $scope.loading = false
+    $scope.loading.components = false
 
+  # exclude one component
   $scope.filterByComponent = (component) ->
     if component.exclude && _.indexOf($scope.options.without_components) == -1
       $scope.options.without_components.push(component.id)
     else
       _.pull($scope.options.without_components, component.id)
 
-  $scope.$watch 'options', (options) ->
-    $scope.loading = true
+  $scope.$watchCollection '[options.food_types, options.without_harmful, options.without_allergen, options.without_components]', ->
+    options = $scope.options
+    $scope.loading.foods = true
     DataService.foods(options).then (data) ->
       $scope.data.foods = data.plain()
-      $scope.loading = false
+      $scope.loading.foods = false
   , true
 
+  # exclude all filtered components
   $scope.selectComponents = (exclude) ->
     components = $filter('filter')($scope.data.components, $scope.component_search, 'strict')
     _.each components, (component) ->
@@ -38,28 +45,28 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
 
   # add all foods to the comparison list
   $scope.selectFoods = (compare) ->
-    $scope.data.comparedFoods = []
-
     foods = $filter('filter')($scope.data.foods, $scope.food_search, 'strict')
     _.each foods, (food) ->
       food.compare = compare
+      _.remove $scope.data.comparedFoods, (comparedFood) ->
+        comparedFood.id == food.id
       true
 
     if compare
-      $scope.loading = true
+      $scope.loading.comparison = true
       DataService.foods(ids: _.pluck(foods, 'id')).then (data) ->
         _.each data.plain(), (comparedFood) ->
           $scope.data.comparedFoods.push(comparedFood)
-        $scope.loading = false
+        $scope.loading.comparison = false
 
   # add one food to the comparison list
   $scope.compare = (food) ->
     if food.compare
-      $scope.loading = true
+      $scope.loading.comparison = true
       DataService.foods(ids: [food.id]).then (data) ->
         _.each data.plain(), (comparedFood) ->
           $scope.data.comparedFoods.push(comparedFood)
-        $scope.loading = false
+        $scope.loading.comparison = false
     else
       $scope.removeFromComparison(food)
 

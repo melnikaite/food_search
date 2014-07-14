@@ -1,12 +1,22 @@
-<i ng-class="{'glyphicon': true, 'glyphicon-refresh': loading}"></i>
-<h5 class='glyphicon-title'>Корма ({{ data.foods.length }})</h5>
-Фильтр <input ng-model='food_search.title'>
-<label>
-  <input type='checkbox' ng-change='selectFoods(allFoods)' ng-model='allFoods'>
-  Все
-</label>
-<ul class='row list-inline'>
-  <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods | filter:food_search:strict track by food.id'>
+<i ng-class="{'glyphicon': true, 'glyphicon-refresh': loading.foods}"></i>
+
+<a ng-click='showFoods=!showFoods' ng-hide='showFoods'>Показать корма ({{ data.foods.length }})</a>
+<span ng-show='showFoods'>
+  <i ng-class="{'glyphicon': true, 'glyphicon-chevron-up': !showFoods, 'glyphicon-chevron-down': showFoods}" ng-click='showFoods=!showFoods'></i>
+  <h5 class='glyphicon-title' ng-click='showFoods=!showFoods'>Корма ({{ data.foods.length }})</h5>
+</span>
+<br />
+
+<div>
+  Фильтр <input ng-model='food_search.title' ng-change='showFoods = food_search.title.length > 0'>
+  <label>
+    <input type='checkbox' ng-change='selectFoods(allFoods)' ng-model='allFoods'>
+    Все
+  </label>
+</div>
+
+<ul class='row list-inline' ng-show='showFoods'>
+  <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods | filter:food_search:strict | orderBy:"title" track by food.id'>
     <label>
       <input type='checkbox' ng-change='compare(food)' ng-model='food.compare'>
       {{ food.title }}
