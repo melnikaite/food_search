@@ -16,7 +16,7 @@
 </div>
 
 <ul class='row list-inline' ng-show='showFoods'>
-  <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods | filter:food_search:strict | orderBy:"title" track by food.id'>
+  <li class='checkbox col-lg-4 col-md-6' ng-repeat='food in data.foods | filter:food_search | orderBy:"title" track by food.id'>
     <label>
       <input type='checkbox' ng-change='compare(food)' ng-model='food.compare'>
       {{ food.title }}

@@ -35,7 +35,7 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
 
   # exclude all filtered components
   $scope.selectComponents = (exclude) ->
-    components = $filter('filter')($scope.data.components, $scope.component_search, 'strict')
+    components = $filter('filter')($scope.data.components, $scope.component_search)
     _.each components, (component) ->
       component.exclude = exclude
       true
@@ -45,7 +45,7 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
 
   # add all foods to the comparison list
   $scope.selectFoods = (compare) ->
-    foods = $filter('filter')($scope.data.foods, $scope.food_search, 'strict')
+    foods = $filter('filter')($scope.data.foods, $scope.food_search)
     _.each foods, (food) ->
       food.compare = compare
       _.remove $scope.data.comparedFoods, (comparedFood) ->
