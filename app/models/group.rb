@@ -10,4 +10,14 @@ class Group < ActiveRecord::Base
       end
     )
   end
+
+  def self.cached_all
+    Marshal.load(
+      Rails.cache.fetch('all_groups') do
+        Marshal.dump(
+          Group.all
+        )
+      end
+    )
+  end
 end

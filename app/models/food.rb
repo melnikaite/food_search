@@ -10,12 +10,10 @@ class Food < ActiveRecord::Base
       id: id,
       title: title,
       food_type: food_type,
-      components: components.group_by do |component|
-        component.group.title
-      end.map do |group, components_in_group|
+      components: Group.cached_all.map do |group|
         {
-          group: group,
-          components_in_group: components_in_group.map do |c|
+          group: group.title,
+          components_in_group: components.select{|c| c.group_id == group.id}.map do |c|
             {
               id: c.id,
               title: c.title,

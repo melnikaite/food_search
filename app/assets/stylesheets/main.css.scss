@@ -13,6 +13,15 @@ body {
   cursor: pointer;
 }
 
+.header {
+  margin-bottom: 40px;
+
+  .logo {
+    margin-right: 50px;
+    vertical-align: baseline;
+  }
+}
+
 .glyphicon-title {
   display: inline-block;
 }
@@ -52,9 +61,29 @@ body {
     overflow-y: hidden;
 
     .foods {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
       .food {
-        width: 500px;
+        width: 520px;
         float: left;
+
+        .groups {
+          list-style: none;
+          margin: 0;
+          padding: 0 0 0 18px;
+
+          .group {
+            margin: 0 0 2px 0;
+
+            .components {
+              list-style: none;
+              margin: 0;
+              padding: 0 0 0 30px;
+            }
+          }
+        }
       }
     }
   }
