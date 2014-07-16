@@ -1,5 +1,6 @@
-<i ng-class="{'glyphicon': true, 'glyphicon-refresh': loading.foods}"></i>
+<a class='anchor' id='foods'></a>
 
+<i ng-class="{'glyphicon': true, 'glyphicon-refresh': loading.foods}"></i>
 <a ng-click='showFoods=!showFoods' ng-hide='showFoods'>Показать корма ({{ data.foods.length }})</a>
 <span ng-show='showFoods'>
   <i ng-class="{'glyphicon': true, 'glyphicon-chevron-up': !showFoods, 'glyphicon-chevron-down': showFoods}" ng-click='showFoods=!showFoods'></i>
