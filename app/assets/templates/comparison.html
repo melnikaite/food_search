@@ -3,6 +3,7 @@
 <div ng-show='data.comparedFoods.length'>
   <i ng-class="{'glyphicon': true, 'glyphicon-refresh': loading.comparison}"></i>
   <h5 class='glyphicon-title'>Сравнение ({{ data.comparedFoods.length }})</h5>
+  <a ng-click='clearComparison()'>Очистить</a>
   <div>
     <label>
       <input type='checkbox' ng-model='options.show_same_components'>

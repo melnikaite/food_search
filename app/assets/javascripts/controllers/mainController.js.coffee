@@ -25,10 +25,14 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
     else
       _.pull($scope.options.without_components, component.id)
 
-  $scope.$watchCollection '[options.food_types, options.without_harmful, options.without_allergen, options.without_components]', ->
-    options = $scope.options
+  $scope.$watch (-> [
+      $scope.options.food_types,
+      $scope.options.without_harmful,
+      $scope.options.without_allergen,
+      $scope.options.without_components
+    ]), ->
     $scope.loading.foods = true
-    DataService.foods(options).then (data) ->
+    DataService.foods($scope.options).then (data) ->
       $scope.data.foods = data.plain()
       $scope.loading.foods = false
   , true
@@ -82,10 +86,17 @@ app.controller 'MainController', ['$scope', 'DataService', '$filter', ($scope, D
     _.all groups, (component_ids) ->
       _.include component_ids, component.id
 
+  # remove one food from comparison
   $scope.removeFromComparison = (food) ->
     foodItem = _.find $scope.data.foods, {id: food.id}
     foodItem.compare = false if foodItem
 
     _.remove $scope.data.comparedFoods, (comparedFood) ->
       comparedFood.id == food.id
+
+  # remove all foods from comparison
+  $scope.clearComparison = ->
+    $scope.data.comparedFoods = []
+    $scope.data.foods = _.map _.find $scope.data.foods, (food) ->
+      food.compare = false
 ]
