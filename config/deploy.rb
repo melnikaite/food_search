@@ -8,7 +8,7 @@ set :repo_url, 'git@github.com:melnikaite/food_search.git'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/home/deploy/food_search'
+set :deploy_to, '/root/food_search'
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -35,8 +35,8 @@ set :linked_dirs, %w{log tmp public/assets assets_manifest_backup}
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :rvm_ruby_version, '2.0.0@food_search'
-set :rvm_custom_path, '/usr/local/rvm'
+set :rvm_ruby_version, '2.0.0-p481@food_search'
+set :rvm_type, :system
 
 namespace :deploy do
 

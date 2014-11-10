@@ -11,7 +11,7 @@ class Search
     where = {}
 
     unless @ids.blank?
-      where[:'id'] = [@ids]
+      where[:'id'] = @ids
     end
 
     unless @food_types.blank?
@@ -35,7 +35,7 @@ class Search
 
   def results
     request = Food.search('*', load: false, where: where, execute: false)
-    request.body[:_source] = {exclude: 'components.*'} if @ids.blank?
+    request.body[:_source] = {excludes: ['components.*']} if @ids.blank?
     results = request.execute.results
     Oj.dump(results)
   end

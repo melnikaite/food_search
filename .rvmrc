@@ -1,1 +1,1 @@
-rvm --create use 2.0.0@food_search
+rvm --create use 2.0.0-p481@food_search

@@ -17,11 +17,11 @@
         <h5 class='glyphicon-title'>{{ food.title }}</h5>
         <span ng-click='removeFromComparison(food)' class='glyphicon glyphicon-remove' title='Удалить из сравнения'></span>
         <ul class='groups'>
-          <li class='group' data-group='{{group.group}}' ng-repeat='group in food.components | orderBy:"group" track by group.group'>
+          <li class='group' data-group='{{group.group}}' ng-repeat='group in food.components.self | orderBy:"group" track by group.group'>
             <i class='glyphicon glyphicon-list-alt'></i>
             {{ group.group }}
             <ul class='components'>
-              <li ng-repeat='component in group.components_in_group | orderBy:"title" track by component.id' ng-hide='sameComponentExists(component)'>
+              <li ng-repeat='component in group.components_in_group.self | orderBy:"title" track by component.id' ng-hide='sameComponentExists(component)'>
             <span ng-class="{'useful': component.useful, 'harmful': component.harmful, 'allergen': component.allergen}" title='{{component.description}}'>
               {{ component.title }} / {{ component.translation }}
             </span>
